@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<fx:root xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            type="lv.itlat.dima.MainController"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.HBox?>
+<?import lv.itlat.dima.MainForm?>
+<fx:root xmlns:fx="http://javafx.com/fxml"
+         xmlns="http://javafx.com/javafx"
+         type="lv.itlat.dima.MainForm"
+         prefHeight="400.0" prefWidth="600.0">
 
     <top>
         <HBox>
-            <Button text="Add Record" onAction="#addRecord"/>
+            <Button text="Add" onAction="#addRecord"/>
+            <Button text="Edit" onAction="#editRecord"/>
         </HBox>
     </top>
 
     <center>
-        <TableView>
+        <TableView fx:id="recordsTable">
             <columns>
-                <TableColumn text="Name"></TableColumn>
-                <TableColumn text="Email"></TableColumn>
-                <TableColumn text="Phone"></TableColumn>
+                <TableColumn text="Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="name"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Email">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="email"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Phone">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="phone"/>
+                    </cellValueFactory>
+                </TableColumn>
             </columns>
         </TableView>
     </center>
