@@ -6,9 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
+<fx:root xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lv.itlat.dima.MainController"
+            type="lv.itlat.dima.MainController"
             prefHeight="400.0" prefWidth="600.0">
 
     <top>
@@ -27,4 +27,4 @@
         </TableView>
     </center>
 
-</BorderPane>
+</fx:root>
