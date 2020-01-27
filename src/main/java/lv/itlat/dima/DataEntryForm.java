@@ -37,13 +37,18 @@ public class DataEntryForm extends BorderPane {
         }
     }
 
-    public Record showAndGet() {
-        nameField.setText("Vasilij");
+    public Record showAndGet(Record existingRecord) {
+        if (existingRecord != null) {
+            nameField.setText(existingRecord.getName());
+            emailField.setText(existingRecord.getEmail());
+            phoneField.setText(existingRecord.getPhone());
+            stage.setTitle("Edit record");
+        }
 
         stage.showAndWait();
 
         if (isOk) {
-            var rec = new Record();
+            var rec = existingRecord == null ? new Record() : existingRecord;
             rec.setName(nameField.getText());
             rec.setEmail(emailField.getText());
             rec.setPhone(phoneField.getText());

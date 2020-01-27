@@ -20,7 +20,7 @@ public class MainForm extends BorderPane {
 
     public void addRecord() {
         var dataEntry = new DataEntryForm(this);
-        var data = dataEntry.showAndGet();
+        var data = dataEntry.showAndGet(null);
         if (data != null) {
             recordsTable.getItems().add(data);
         }
@@ -28,6 +28,7 @@ public class MainForm extends BorderPane {
 
     public void editRecord() {
         var selected = recordsTable.getSelectionModel().getSelectedItem();
-        System.out.println(selected.getName());
+        var dataEntry = new DataEntryForm(this);
+        dataEntry.showAndGet(selected);
     }
 }
