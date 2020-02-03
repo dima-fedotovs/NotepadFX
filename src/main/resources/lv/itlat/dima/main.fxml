@@ -13,12 +13,20 @@
         <HBox>
             <Button text="Add" onAction="#addRecord"/>
             <Button text="Edit" onAction="#editRecord"/>
+            <TextField fx:id="nameSearchText" onKeyTyped="#doSearch"/>
+            <TextField fx:id="emailSearchText" onKeyTyped="#doSearch"/>
+            <TextField fx:id="phoneSearchText" onKeyTyped="#doSearch"/>
         </HBox>
     </top>
 
     <center>
         <TableView fx:id="recordsTable">
             <columns>
+                <TableColumn text="ID">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="id"/>
+                    </cellValueFactory>
+                </TableColumn>
                 <TableColumn text="Name">
                     <cellValueFactory>
                         <PropertyValueFactory property="name"/>

@@ -2,14 +2,19 @@ package lv.itlat.dima;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.UUID;
 
 public class MainForm extends BorderPane {
 
     public TableView<Record> recordsTable;
+    public TextField nameSearchText;
+    public TextField emailSearchText;
+    public TextField phoneSearchText;
 
     public MainForm() throws IOException {
         var loader = new FXMLLoader(
@@ -20,38 +25,32 @@ public class MainForm extends BorderPane {
     }
 
     public void initialize() throws SQLException {
-        Connection conn = DriverManager.
-                getConnection("jdbc:h2:~/testitlat");
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from records");
-        while (rs.next()) {
-            var id = rs.getString("ID");
-            var name = rs.getString("NAME");
-            var email = rs.getString("EMAIL");
-            var phone = rs.getString("PHONE");
-
-            var rec = new Record();
-            rec.setName(name);
-            rec.setEmail(email);
-            rec.setPhone(phone);
-
-            recordsTable.getItems().add(rec);
-        }
-
-        conn.close();
+        var records = RecordDAO.getAllRecords();
+        recordsTable.getItems().setAll(records);
     }
 
-    public void addRecord() {
+    public void addRecord() throws SQLException {
         var dataEntry = new DataEntryForm(this);
         var data = dataEntry.showAndGet(null);
         if (data != null) {
             recordsTable.getItems().add(data);
+            RecordDAO.insertRecord(data);
         }
     }
 
-    public void editRecord() {
+    public void editRecord() throws SQLException {
         var selected = recordsTable.getSelectionModel().getSelectedItem();
         var dataEntry = new DataEntryForm(this);
-        dataEntry.showAndGet(selected);
+        if (dataEntry.showAndGet(selected) != null) {
+            RecordDAO.updateRecord(selected);
+        }
+    }
+
+    public void doSearch() throws SQLException {
+        var name = nameSearchText.getText();
+        var email = emailSearchText.getText();
+        var phone = phoneSearchText.getText();
+        var records = RecordDAO.findRecords(name, email, phone);
+        recordsTable.getItems().setAll(records);
     }
 }
